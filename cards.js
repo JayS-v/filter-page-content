@@ -2,34 +2,42 @@ const cardsInitial = [
     {
         dataFilter: 'red',
         imageSource: 'images/red0.png',
+        link: 'https://en.wikipedia.org/wiki/Red_fox',
     },
     {
         dataFilter: 'pet',
         imageSource: 'images/pet0.png',
+        link: 'https://en.wikipedia.org/wiki/Domesticated_silver_fox',
     },
     {
         dataFilter: 'pet',
         imageSource: 'images/pet1.png',
+        link: 'https://en.wikipedia.org/wiki/Domesticated_silver_fox',
     },
     {
         dataFilter: 'kit',
         imageSource: 'images/kit0.png',
+        link: 'https://en.wikipedia.org/wiki/Kit_fox',
     },
     {
         dataFilter: 'arctic',
         imageSource: 'images/arctic0.png',
+        link: 'https://en.wikipedia.org/wiki/Arctic_fox',
     },
     {
         dataFilter: 'fennec',
         imageSource: 'images/fennec0.png',
+        link: 'https://en.wikipedia.org/wiki/Fennec_fox',
     },
     {
         dataFilter: 'kit',
         imageSource: 'images/kit1.png',
+        link: 'https://en.wikipedia.org/wiki/Kit_fox',
     },
     {
         dataFilter: 'red',
         imageSource: 'images/red1.png',
+        link: 'https://en.wikipedia.org/wiki/Red_fox',
     },
 ]
 
