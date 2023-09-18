@@ -19,6 +19,24 @@ body {
     animation: glitch 2.5s infinite;
 }
 
+.likes {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-light);
+    cursor: pointer;
+}
+
+.likes::before {
+    display: inline-block;
+    content: '';
+    background: url(images/likes.svg) center/ 14px no-repeat;
+    width: 14px;
+    height: 14px;
+    margin: 0px 6px -2px 0px;
+    animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
 .menu__items {
     display: flex;
     flex-wrap: wrap;

@@ -4,22 +4,50 @@ const pageContent = document.querySelector('.page-content');
 const menu = document.querySelector('.menu');
 const menuLinks = document.querySelectorAll('.menu__link');
 
+let filteredArray = [...cards];
+
 const render = (DOMElement, array, arrayItemContent) => DOMElement.innerHTML = array.map(arrayItemContent).join("");
 
-const showInitialData = () => render(pageContent, cards, cardContent);
+const showInitialData = () => render(pageContent, filteredArray, cardContent);
 
-window.addEventListener('DOMContentLoaded', async (event) => showInitialData());
+
+window.addEventListener('DOMContentLoaded', async (event) => {
+    showInitialData();
+    likesHandler(filteredArray);
+});
+
+
+const likesHandler = (array) => {
+    pageContent.addEventListener('click', function (event) {
+        if (event.target.className === 'likes') {
+            const clickedCardID = event.target.closest('section').id;
+    
+            let newLikeNumber = Number(event.target.innerHTML) + 1;
+            console.log(newLikeNumber);     //new like number 
+    
+            array.map(card => {            
+                if (card.id === clickedCardID) {
+                    card.likes = newLikeNumber;
+                }
+                return card;
+            });
+
+            render(pageContent, filteredArray, cardContent);
+        } 
+    });
+}
 
 menu.onclick = event => {
     const clickedMenuItem = event.target.dataset.filter;  
 
     if (event.target.tagName == 'A') {
         if (!event.target.classList.contains('selected') && cards.some(card => card.dataFilter === clickedMenuItem)){
-            const newArray = cards.filter(card => card.dataFilter === clickedMenuItem);
-            render(pageContent, newArray, cardContent);
-            createPopUp(event, clickedMenuItem);
+            filteredArray = cards.filter(card => card.dataFilter === clickedMenuItem);
+            render(pageContent, filteredArray, cardContent);
+            popUpLinks(event, clickedMenuItem);
         } else if (event.target.classList.contains('selected')) {
-           showInitialData();
+            filteredArray = [...cards];
+            showInitialData();
         }        
         else {
             console.log(`card is ${clickedMenuItem}`);
@@ -29,8 +57,8 @@ menu.onclick = event => {
     } 
 };
 
-const createPopUp = (event, clickedMenuItem) => {
-    const clickedCardITem = cards.find(card => card.dataFilter == clickedMenuItem);
+const popUpLinks = (event, clickedMenuItem) => {
+    const clickedCardItem = cards.find(card => card.dataFilter == clickedMenuItem);
     let popUp;
 
     if (document.querySelector('dialog')){
@@ -38,7 +66,7 @@ const createPopUp = (event, clickedMenuItem) => {
     }
 
     popUp = document.createElement('dialog');
-    const popUpLink = `Open <a href="${clickedCardITem.link}" target="_blank">${clickedCardITem.link}</a>`
+    const popUpLink = `Open <a href="${clickedCardItem.link}" target="_blank">${clickedCardItem.link}</a>`
     popUp.insertAdjacentHTML('beforeend', popUpLink);
     event.target.appendChild(popUp);
     popUp.show();
@@ -50,3 +78,13 @@ const createPopUp = (event, clickedMenuItem) => {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
