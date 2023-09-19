@@ -1,11 +1,13 @@
 :root {
     --default-text-color: #000;
     --color-light: #FF3D00;
+    --background-color: #F8F8F8;
 }
 
 body {
     color: var(--default-text-color);
     font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
 }
   
 .header {
@@ -17,24 +19,8 @@ body {
 .header__title {
     font-size: 2.5rem;
     animation: glitch 2.5s infinite;
-}
-
-.likes {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-light);
-    cursor: pointer;
-}
-
-.likes::before {
-    display: inline-block;
-    content: '';
-    background: url(images/likes.svg) center/ 14px no-repeat;
-    width: 14px;
-    height: 14px;
-    margin: 0px 6px -2px 0px;
-    animation: heartbeat 1.5s ease-in-out infinite both;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #AEAEAE;
 }
 
 .menu__items {
@@ -44,7 +30,6 @@ body {
 }
 
 .menu__item {
-    position: relative;
     list-style: none;
     color: var(--color-light);
     flex-grow: 1;
@@ -63,14 +48,35 @@ body {
     align-items: center;
 }
 
+.page-content {
+    /* display: flex;
+    flex-wrap: wrap; */
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+
+
+/* added by JS, menu */
+
+.selected {
+    background-color: var(--color-light);
+    color: #FFF;
+    font-weight: 600;
+}
+
 dialog {
-    margin-top: -135px;
+    margin-top: -120px;
     font-size: 0.9rem;
     background-color: #000;
     border: 0;
     margin-left: -50px;
-  
+    opacity: 0.6;
 }
+
+
 
 dialog, dialog a {
     color: #FFF;
@@ -79,9 +85,14 @@ dialog, dialog a {
     font-weight: 400;
 }
 
-dialog::after {
-    content: '';
+dialog a {
     display: block;
+    text-align: center;
+    padding: 8px;
+    min-width: 312px;
+}
+
+dialog::after {
     content: '';
     display: block;
     border-left: 20px solid transparent;
@@ -93,12 +104,9 @@ dialog::after {
 }
 
 dialog[open] {
+    padding: 0;
     animation: glitch 300ms;
-}
-
-.page-content {
-    display: flex;
-    flex-wrap: wrap;
+    border-radius: 8px;
 }
 
 .content-block {
@@ -106,15 +114,96 @@ dialog[open] {
     flex-direction: column-reverse;
 }
 
-@media (min-width: 1024px) {
-    .content-block {
-        width: 50%;
-        flex-direction: row-reverse;
+.content-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #D9D9D9;
+    gap: 20px;
+}
+
+.content-block__title {
+    font-size: 23px;
+}
+
+.content-block__body  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.content-block__text {
+    font-size: 0.9rem;
+}
+
+.content-block__image {
+    width: 100%;
+    margin: 0;
+}
+
+
+/* added by JS, content */
+
+.content-block__link, .likes {
+    display: block;
+    text-decoration: none;
+    color: var(--color-light);
+    font-weight: 600;
+    font-size: 0.875rem;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.28px;
+    cursor: pointer;
+}
+
+.likes {
+    display: flex;
+}
+
+.likes::before {
+    display: inline-block;
+    content: '';
+    background: url(images/likes.svg) center/ 16px no-repeat;
+    width: 16px;
+    height: 16px;
+    margin: 0px 6px -2px 0px;
+    animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
+
+@media (max-width: 1023px) {
+    dialog {
+        margin-top: unset;
+        top: 85px;
+        margin-left: 10px;
+    }
+
+    dialog::after {
+        bottom: -12px;
+        left: 25px;
     }
 }
-/* JS */
-.selected {
-    background-color: var(--color-light);
-    color: #FFF;
-    font-weight: 600;
+
+@media (min-width: 1024px) {
+    .page-content {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .menu__item {
+        position: relative;
+    }
+
+    .content-block {
+        flex-direction: row-reverse;
+    }
+
+    .content-block__title {
+        font-size: 1.5vw;
+        text-wrap: balance;
+    }
+
+    .content-block__image {
+        max-width: 237px;
+        margin: 20px;
+    }
 }

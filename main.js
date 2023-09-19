@@ -23,7 +23,6 @@ const likesHandler = (array) => {
             const clickedCardID = event.target.closest('section').id;
     
             let newLikeNumber = Number(event.target.innerHTML) + 1;
-            console.log(newLikeNumber);     //new like number 
     
             array.map(card => {            
                 if (card.id === clickedCardID) {
@@ -45,12 +44,10 @@ menu.onclick = event => {
             filteredArray = cards.filter(card => card.dataFilter === clickedMenuItem);
             render(pageContent, filteredArray, cardContent);
             popUpLinks(event, clickedMenuItem);
-        } else if (event.target.classList.contains('selected')) {
+        }   
+        else {
             filteredArray = [...cards];
             showInitialData();
-        }        
-        else {
-            console.log(`card is ${clickedMenuItem}`);
         };
 
         menuLinks.forEach(menuLink => clickedMenuItem == menuLink.dataset.filter ? menuLink.classList.toggle('selected') : menuLink.classList.remove('selected'));
@@ -66,19 +63,23 @@ const popUpLinks = (event, clickedMenuItem) => {
     }
 
     popUp = document.createElement('dialog');
-    const popUpLink = `Open <a href="${clickedCardItem.link}" target="_blank">${clickedCardItem.link}</a>`
+    const popUpLink = `<a href="${clickedCardItem.link}" target="_blank">Open ${clickedCardItem.link}</a>`
     popUp.insertAdjacentHTML('beforeend', popUpLink);
     event.target.appendChild(popUp);
     popUp.show();
 
+
     //to close the popUp on click outside
     window.addEventListener('click', (event) => {
-        if (popUp && !popUp.classList.contains(event.target.className) && !event.target.classList.contains('menu__link') || !event.target.classList.contains('selected')){
+        if (popUp && !event.target.classList.contains('menu__link') || !event.target.classList.contains('selected')){
             popUp.close();
-        }
+            console.log(event.target.tagName);
+        } 
     });
-}
 
+
+
+}
 
 
 
