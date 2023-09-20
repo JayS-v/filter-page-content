@@ -6,9 +6,24 @@ const menuLinks = document.querySelectorAll('.menu__link');
 
 let filteredArray = [...cards];
 
-const render = (DOMElement, array, arrayItemContent) => DOMElement.innerHTML = array.map(arrayItemContent).join("");
+// const render = (DOMElement, array, arrayItemContent) => DOMElement.innerHTML = array.map(arrayItemContent).join("");
 
-const showInitialData = () => render(pageContent, filteredArray, cardContent);
+
+const render = (DOMElement, array, arrayItemContent) => {
+    DOMElement.innerHTML = array.map(arrayItemContent).join("");
+}
+
+const animatedAppearingStyle = () => {
+    setTimeout(() => {
+        const contentBlocks  = document.querySelectorAll('.content-block');
+        contentBlocks.forEach(contentBlock => contentBlock.classList.add('card-show'));
+    },10);
+}
+
+const showInitialData = () => {
+    animatedAppearingStyle();
+    render(pageContent, filteredArray, cardContent);
+}
 
 
 window.addEventListener('DOMContentLoaded', async (event) => {
@@ -40,14 +55,31 @@ menu.onclick = event => {
     const clickedMenuItem = event.target.dataset.filter;  
 
     if (event.target.tagName == 'A') {
+        // Hide existing cards to animate them later
+        const contentBlocks  = document.querySelectorAll('.content-block');
+        contentBlocks.forEach(contentBlock => contentBlock.classList.add('card-hidden'));
+        contentBlocks.forEach(contentBlock => contentBlock.classList.remove('card-show'));
+
         if (!event.target.classList.contains('selected') && cards.some(card => card.dataFilter === clickedMenuItem)){
             filteredArray = cards.filter(card => card.dataFilter === clickedMenuItem);
-            render(pageContent, filteredArray, cardContent);
+
+            // Render new cards after a delay to allow the fade-out effect to happen
+            setTimeout(() => {
+                animatedAppearingStyle();
+                render(pageContent, filteredArray, cardContent);
+                pageContent.style.display = 'flex';
+            }, 300);
             popUpLinks(event, clickedMenuItem);
         }   
         else {
             filteredArray = [...cards];
-            showInitialData();
+            
+            // Render new cards after a delay to allow the fade-out effect to happen
+            setTimeout(() => {
+                animatedAppearingStyle();
+                showInitialData();
+                pageContent.style.display = 'grid';
+            }, 300);
         };
 
         menuLinks.forEach(menuLink => clickedMenuItem == menuLink.dataset.filter ? menuLink.classList.toggle('selected') : menuLink.classList.remove('selected'));
@@ -76,9 +108,6 @@ const popUpLinks = (event, clickedMenuItem) => {
             console.log(event.target.tagName);
         } 
     });
-
-
-
 }
 
 

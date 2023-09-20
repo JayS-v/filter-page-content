@@ -27,6 +27,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 17px;
+    padding: 20px;
 }
 
 .menu__item {
@@ -42,22 +43,23 @@ body {
     text-decoration: none;
     border: 1px solid var(--color-light);
     border-radius: 7px;
-    min-width: 155px;
+    min-width: 100px;
     min-height: 54px;
     justify-content: center;
     align-items: center;
+    padding: 4px;
 }
 
 .page-content {
     /* display: flex;
     flex-wrap: wrap; */
-    margin-top: 100px;
+    /* margin-top: 100px; */
+    grid-template-columns: 1fr 1fr;
+    margin: 100px 10% 0 10%;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 50px;
+    justify-content: center;
 }
-
-
 
 /* added by JS, menu */
 
@@ -111,8 +113,23 @@ dialog[open] {
 
 .content-block {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row-reverse;
+    border-radius: 10px;
+    transition: all 500ms;
 }
+
+.content-block:hover {
+    background-color:  #f8f2f2; 
+}
+
+.content-block:hover .content-block__image {
+    transform: scale(1.01);
+}
+
+.content-block:hover .likes {
+    transform: scale(1.2);
+}
+
 
 .content-block__header {
     display: flex;
@@ -131,15 +148,21 @@ dialog[open] {
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
+    padding: 10px;
 }
 
 .content-block__text {
     font-size: 0.9rem;
 }
 
+.content-block__link {
+    width: fit-content;
+}
+
 .content-block__image {
     width: 100%;
     margin: 0;
+    transition: all 500ms;
 }
 
 
@@ -158,6 +181,7 @@ dialog[open] {
 
 .likes {
     display: flex;
+    transition: all 500ms;
 }
 
 .likes::before {
@@ -172,6 +196,7 @@ dialog[open] {
 
 
 @media (max-width: 1023px) {
+
     dialog {
         margin-top: unset;
         top: 85px;
@@ -182,19 +207,32 @@ dialog[open] {
         bottom: -12px;
         left: 25px;
     }
+
+    .page-content {
+        flex-direction: column; /*flex adding by JS*/
+        grid-template-columns: 1fr;
+        margin: 100px 6% 0 6%;
+    }
+
+    .content-block {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+
+    .content-block__image {
+        max-width: 332px;
+    }
 }
 
 @media (min-width: 1024px) {
-    .page-content {
-        grid-template-columns: 1fr 1fr;
-    }
 
     .menu__item {
         position: relative;
     }
 
-    .content-block {
-        flex-direction: row-reverse;
+    .menu__link {
+        min-width: 155px;
     }
 
     .content-block__title {
@@ -206,4 +244,17 @@ dialog[open] {
         max-width: 237px;
         margin: 20px;
     }
+}
+
+/* animated cards appearing  */
+
+.card-hidden {
+    transform: scale(.9);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-show {
+    opacity: 1;
+    transform: scale(1);
 }
