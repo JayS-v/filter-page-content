@@ -55,11 +55,9 @@ const cardsInitial = [
         likes: 1100,
         text: 'Lorem ipsum dolor sit amet, eu mei posse possim atomorum, vix cu fabellas assueverit. Vel ad option partiendo maiestatis, nec affert appetere te, his \assentior, libris docendi tractatos mea eu.',
     },
-]
-
+];
 //add ID's 
-export const cards = cardsInitial.map((item, index) => ({ ...item, id: 'fox' + Number(index + 1)}))
-
+export const cards = cardsInitial.map((item, index) => (Object.assign(Object.assign({}, item), { id: 'fox' + Number(index + 1) })));
 export const cardContent = (arrayItem) => {
     return `
     <section class="content-block" id="${arrayItem.id}" data-filter="${arrayItem.dataFilter}">
@@ -75,6 +73,6 @@ export const cardContent = (arrayItem) => {
             <img width="100%"src="${arrayItem.imageSource}" alt="red smile fox">
         </figure>
     </section>
-    `
-}
-
+    `;
+};
+//# sourceMappingURL=cards.js.map
